@@ -1,0 +1,8 @@
+:root{
+	--fg-primary-color : #000000;
+	--primary-theme:red;
+}
+
+h1 {
+	color:var(--primary-theme);
+}
