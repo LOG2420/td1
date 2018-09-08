@@ -19,14 +19,14 @@ Le javascript est présentement tout sur la branche alex
 #### Test et debug
 
 [ ] function ConstructTable(intel)
-[ ] function constructEmptyBox()
-[ ] function constructCheckBox()
-[ ] function constructDecisionBox()
-[ ] function constructNameBox(name)
+[ ] function constructNameBox(name) (manque l'ajout du SVG)
 
 #### Documenter
 
 [ ] function toggleDiplay(htmlElement)
+[ ] function constructEmptyBox()
+[ ] function constructCheckBox()
+[ ] function constructDecisionBox()
 
 ## Notes
 
