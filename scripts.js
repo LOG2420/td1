@@ -88,44 +88,49 @@ function constructTallyBox(tally) {
 }
 
 
-// Needs to be worked on for sure
+// Fucntional (missing SVG functionaly)
 function constructNameBox(name) {
   let box = document.createElement("div");
-  let svg = document.createElement("svg");
-  let text = document.createElement("use");
+  // let svg = document.createElement("svg");
+  // let text = document.createElement("use");
   let nameSpan = document.createElement("span");
   nameSpan.innerText = name
-  box.appendChild(svg);
+  // box.appendChild(svg);
   box.appendChild(nameSpan);
+  return box
 }
 
-// Needs to be tested and shit
+// Functional
 function constructDecisionBox() {
   let box = document.createElement("div");
-  box.classList.add(".decision-box");
+  box.classList.add("decision-box");
   return box;
 }
 
-// Needs to be tested
+// functional
 function constructCheckBox() {
   box = constructDecisionBox();
-  box.classList.add(".checked");
+  box.classList.add("checked");
   return box;
 }
 
-// needs to be tested
+// Functional
 function constructEmptyBox() {
   box = constructDecisionBox();
-  box.classList.add(".empty");
+  box.classList.add("empty");
   return box;
 }
 
 // Needs an initial test
 function ConstructTable(intel) {
-  let container = document.querySelector(".tablePoll .container");
+  let container = document.querySelector(".table-poll .container");
+
   intel.Participants.forEach(function(participant) {
     let row = document.createElement("div");
+    console.log(row);
     row.classList.add("row");
+    console.log(participant)
+    console.log(participant.Nom);
     row.appendChild(constructNameBox(participant.name));
     participant.Availabilities.forEach(function(isAvailable){
       if(isAvailable) {
@@ -135,12 +140,9 @@ function ConstructTable(intel) {
         row.appendChild(constructEmptyBox());
       }
     });
-
+    container.appendChild(row);
   })
-  for (var i = 0; i < array.length; i++) {
 
-
-  }
 }
 
 function tallyCalculator() {
@@ -150,7 +152,6 @@ function tallyCalculator() {
 function parseDate(dateString) {
 
 }
-
 
 // This part of the code toggles the displayss
 function toggleDiplay(htmlElement) {
@@ -163,11 +164,14 @@ function toggleDiplay(htmlElement) {
 }
 
 // On page load
-let layoutSwitchButton = document.querySelector("button['switch-layouts']");
-let pollLayout = document.querySelector(".poll-layout");
-let calendarLayout = document.querySelector(".calendar-layout");
 
-layoutSwitchButton.addEventListener('click', e=>{
-	toggleDispay(pollLayout);
-	toggleDiplay(calendarLayout);
-})
+ConstructTable(intel);
+
+// let layoutSwitchButton = document.querySelector("button['switch-layouts']");
+// let pollLayout = document.querySelector(".poll-layout");
+// let calendarLayout = document.querySelector(".calendar-layout");
+//
+// layoutSwitchButton.addEventListener('click', e=>{
+// 	toggleDispay(pollLayout);
+// 	toggleDiplay(calendarLayout);
+// })

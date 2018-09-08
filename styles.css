@@ -10,11 +10,19 @@
 
 /* Styles applying to only the poll section of the page */
 
+.row {
+	display: flex;
+	height:50px;
+}
+
 .table-poll {
 	display:block;
 }
 
 .decision-box {
+	flex: 1 1 30px;
+	width:auto;
+	height:49px;
 	border-left: 1px solid var(--border-gray);
 	border-bottom: 1px solid white;
 }
@@ -24,22 +32,24 @@
 }
 
 .empty {
-	background-position: var(--empty-background);
+	background-color:var(--empty-background);
 }
 
+.name-box {
+		flex: 2 1 30px;
+		height:49px;
+		border-left: 1px solid var(--border-gray);
+		border-bottom: 1px solid white;
+}
 /* .container {
 	display: grid;
 	grid-template-columns: repeat(1, 1fr)
 }
 
-.row {
-	display: flex;
-	height:50px;
-}
+
 
 .first.row {
 	height: 100px;
-
 }
 
 .row div {
