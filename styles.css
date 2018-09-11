@@ -1,23 +1,112 @@
+/* General styles, applied throughout the page */
 :root{
 	--fg-primary-color : #000000;
 	--primary-theme:red;
 	--border-gray: #d4dade;
 	--checked-background:#CDEAA1;
 	--empty-background:#FCEDE9;
+	font-family: 'Fira Sans', sans-serif;
+	color:rgb(67,78,87);
 }
 
-/* General styles, applied throughout the page */
+/* ==========================================================================
+   Styles applying to the header sections (static through layout swithches)
+   ========================================================================== */
 
-/* Styles applying to only the poll section of the page */
+
+/* Styles applying the time meta data
+   ========================================================================== */
+
+.time-meta-data {
+	font-size:16px;
+	margin-top:32px;
+	padding: 32px 16px;
+}
+
+.time-zone {
+	font-weight:500;
+}
+
+
+/* Styles for the layout-switch buttons
+   ========================================================================== */
+
+button {
+	border:0px solid white;
+	border-bottom : 2px solid white;
+	background-color: white;
+	width:auto;
+	padding: 4px 16px;
+	height:auto;
+	font-size:16px;
+	font-weight:500;
+	cursor:pointer;
+}
+
+button:focus {
+	outline:0px solid white;
+}
+
+.clicked {
+	border-bottom : 2px solid black;
+}
+
+.toggle-options {
+	padding: 16px 0px;
+	width:175px;
+	margin:auto
+}
+
+/* ==========================================================================
+   Styles applying to the poll section of the page
+   ========================================================================== */
 
 .row {
 	display: flex;
 	height:50px;
 }
 
-.table-poll {
-	display:block;
+/* Styles for the data and hour boxes
+  ========================================================================== */
+
+.option-box {
+	height:167px;
+	width:72px;
+	border: 1px solid var(--border-gray);
 }
+
+.date {
+	width:inherit;
+	height:80px;
+	padding: 16px 0px;
+	text-align: center;
+}
+
+.date-word {
+	font-size:14px;
+}
+
+.date-number {
+	margin: 0px 4px;
+	font-size: 26px;
+	font-weight:500;
+	color:black;
+}
+
+.time-interval {
+	height: 39px;
+	padding: 0px 4px;
+	padding-bottom: 16px
+}
+
+.hour {
+	text-align: center;
+	font-size: 14px;
+}
+
+
+/* Styles for the partcipant table poll table
+  ========================================================================== */
 
 .decision-box {
 	flex: 1 1 30px;
@@ -25,6 +114,8 @@
 	height:49px;
 	border-left: 1px solid var(--border-gray);
 	border-bottom: 1px solid white;
+	min-width: 72px;
+	max-width: 72px;
 }
 
 .checked {
@@ -35,41 +126,24 @@
 	background-color:var(--empty-background);
 }
 
+
 .name-box {
 		flex: 2 1 30px;
 		height:49px;
 		border-left: 1px solid var(--border-gray);
 		border-bottom: 1px solid white;
-}
-/* .container {
-	display: grid;
-	grid-template-columns: repeat(1, 1fr)
+		min-width:120px;
+		max-width:120px;
 }
 
+/* ================ */
+.table-poll {
 
-
-.first.row {
-	height: 100px;
 }
 
-.row div {
 
-	flex: 1 1 30px;
-	background-color:red;
-	border:solid 1px white;
-}
-
-.row .label {
-	flex: 2 1 auto;
-}
-
-img {
-	width: 100%;
-} */
-
-
-/* Styles applying to only the calendar portion of the page */
-
+/* ==========================================================================
+   Styles applying to the calendar section of the page
+   ========================================================================== */
 .calendar {
-	display:none;
-}
+	}

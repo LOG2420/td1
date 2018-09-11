@@ -4,29 +4,29 @@
 
 ### HTML CSS
 
+- [X] Crééer un header en HTML CSS (Alexandre)
 
 ### Javascript
 
 Le javascript est présentement tout sur la branche alex
 
 #### implémentation
-
-[ ] function tallyCalculator()
-[ ] function parseDate(dateString)
-[ ] function constructTallyBox(tally)
-[ ] function constructDateBox(dateInformation)
+- [ ] function tallyCalculator()
+- [ ] function parseDate(dateString)
+- [ ] function constructTallyBox(tally)
+- [ ] function constructDateBox(dateInformation)
 
 #### Test et debug
 
-[ ] function ConstructTable(intel)
-[ ] function constructNameBox(name) (manque l'ajout du SVG)
+- [ ] function ConstructTable(intel)
+- [ ] function constructNameBox(name) (manque l'ajout du SVG)
 
 #### Documenter
 
-[ ] function toggleDiplay(htmlElement)
-[ ] function constructEmptyBox()
-[ ] function constructCheckBox()
-[ ] function constructDecisionBox()
+- [ ] function toggleDiplay(htmlElement)
+- [ ] function constructEmptyBox()
+- [ ] function constructCheckBox()
+- [ ] function constructDecisionBox()
 
 ## Notes
 
