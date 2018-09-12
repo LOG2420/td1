@@ -66,13 +66,14 @@ button:focus {
 	height:50px;
 }
 
-/* Styles for the data and hour boxes
+/* Styles for the date and hour boxes
   ========================================================================== */
 
 .option-box {
 	height:167px;
 	width:72px;
 	border: 1px solid var(--border-gray);
+	border-right: 0px solid white;
 }
 
 .date {

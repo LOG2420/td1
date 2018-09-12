@@ -77,59 +77,68 @@ let intel = {
 
 // We could make a OLOO architecture
 
-var data = {
+var dataObject = {
   __init__ : function(intel) {
     this.unparsedCalendar = intel.Calendrier;
-    this.particpants = [];
-    intel.Participants(function(participant){
+    this.participants = [];
+    intel.Participants.forEach(function(Participant){
       let participant = {
-        name : participant.Nom,
-        status : partcipant.Status,
-        availabilities : partcipant.Availabilities
-      }
-      this.partcipants.push(partcipant);
-    })
+        name : Participant.Nom,
+        status : Participant.Statut,
+        availabilities :Participant.Availabilities
+      };
+
+      this.participants.push(participant);
+    }.bind(this))
   },
 
   tallyCalculator : function(){
 
   },
 
-  computeEndTime: function(startTimeString, length){
+  computeEndTime: function(startTimeString, durationMinutes){
 
     startTimeArray = startTimeString.split(":");
 
-    let startHour = startTimeArray[0];
+    let startHour = Number(startTimeArray[0]);
     let durationHours = 0;
 
-    while(length >= 60) {
+    while(durationMinutes >= 60) {
       durationHours += 1;
       durationMinutes -=60;
     }
 
-    let startMinute = startTimeArray[1];
+    let startMinute = Number(startTimeArray[1]);
 
     let endHour = startHour + durationHours;
     let endMinute = startMinute + durationMinutes;
 
-    return endHour.toString() + ":" + endMinute.toString() + ":" + startTimeArray.toString();
+    let endMinuteString = endMinute.toString();
+    if (endMinute < 10)
+    {
+      endMinute += "0";
+    }
 
+    return endHour.toString() + ":" + endMinute.toString() + ":" + startTimeArray[2];
   },
 
   parseCalendar : function() {
-    this.parsedCalendar = []
     if(!this.parsedCalendar){
-      unparsedCalendar.forEach(function(dateString) {
-        dateArray = dateString.split(" ");
+      this.parsedCalendar = [];
+      this.unparsedCalendar.forEach(function(dateElement) {
+        dateArray = dateElement[0].split(" ");
         dateObject = {
           weekDay : dateArray[0],
-          day : dateArray[1],
-          month : dateArray[2],
+          month : dateArray[1],
+          day : dateArray[2],
           year : dateArray[3],
-          startTime : dateArray[4]
+          startTime : dateArray[4],
+          durationMinutes : dateElement[1]
         };
+
+        dateObject.endTime = this.computeEndTime(dateObject.startTime, dateObject.durationMinutes);
         this.parsedCalendar.push(dateObject);
-      });
+      }.bind(this));
     }
   }
 
@@ -173,7 +182,46 @@ var data = {
 
 // This part of the code will run on load to fill the information in the html from the css
 function constructDateBox(dateInformation){
+  let box = document.createElement("div");
+  box.classList.add("option-box");
 
+  let dateBox = document.createElement("div");
+  dateBox.classList.add("date");
+
+  let month = document.createElement("div");
+  month.classList.add("date-word");
+  month.innerText = dateInformation.month;
+
+  let number = document.createElement("div");
+  number.classList.add("date-number");
+  number.innerText = dateInformation.day;
+
+  let weekDay = document.createElement("div");
+  weekDay.classList.add("date-word");
+  weekDay.innerText = dateInformation.weekDay;
+
+  dateBox.appendChild(month);
+  dateBox.appendChild(number);
+  dateBox.appendChild(weekDay);
+
+  box.appendChild(dateBox);
+
+  let timeInterval = document.createElement("div");
+  timeInterval.classList.add("time-interval");
+
+  let startTime = document.createElement("div");
+  startTime.classList.add("hour");
+  startTime.innerText = dateInformation.startTime;
+
+  let endTime = document.createElement("div");
+  endTime.classList.add("hour");
+  endTime.innerText = dateInformation.endTime;
+
+  timeInterval.appendChild(startTime);
+  timeInterval.appendChild(endTime);
+
+  box.appendChild(timeInterval);
+  return box;
 }
 
 function constructTallyBox(tally) {
@@ -238,18 +286,31 @@ function constructEmptyBox() {
   return box;
 }
 
-// Needs an initial test
+/**
+ * Constructs a div.decison-box html element.
+ *
+ * @constructor
+ *
+ * @return
+ * The box basic decision box html element.
+ */
 function ConstructTable(intel) {
   let container = document.querySelector(".table-poll .container");
 
-  intel.Participants.forEach(function(participant) {
+  let row = document.querySelector(".container> :first-child")
+  intel.parsedCalendar.forEach(function(dateObject){
+    row.appendChild(constructDateBox(dateObject));
+  });
+
+  // Constructing the partcipant table
+  intel.participants.forEach(function(participant) {
     let row = document.createElement("div");
     console.log(row);
     row.classList.add("row");
     console.log(participant)
-    console.log(participant.Nom);
-    row.appendChild(constructNameBox(participant.Nom));
-    participant.Availabilities.forEach(function(isAvailable){
+    console.log(participant.name);
+    row.appendChild(constructNameBox(participant.name));
+    participant.availabilities.forEach(function(isAvailable){
       if(isAvailable) {
         row.appendChild(constructCheckBox());
       }
@@ -265,7 +326,15 @@ function ConstructTable(intel) {
 
 // On page load
 
-ConstructTable(intel);
+
+var data = Object.create(dataObject);
+
+data.__init__(intel);
+data.parseCalendar();
+
+console.log(data);
+ConstructTable(data);
+
 
 // ====================================================
 // ================== Layout Switch ===================
