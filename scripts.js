@@ -96,9 +96,23 @@ var dataObject = {
 
   },
 
+  convertToAMPM : function(timeString) {
+    let timeArray = timeString.split(":");
+
+    if (timeArray[0] > 12) {
+      return (timeArray[0] - 12).toString() + ":" + timeArray[1].toString() + " PM";
+    }
+    else if (timeArray[0] == 12) {
+      return (timeArray[0]).toString() + ":" + timeArray[1].toString() + " PM";
+    }
+    else {
+      return (timeArray[0]).toString() + ":" + timeArray[1].toString() + " AM";
+    }
+  },
+
   computeEndTime: function(startTimeString, durationMinutes){
 
-    startTimeArray = startTimeString.split(":");
+    let startTimeArray = startTimeString.split(":");
 
     let startHour = Number(startTimeArray[0]);
     let durationHours = 0;
@@ -119,7 +133,8 @@ var dataObject = {
       endMinute += "0";
     }
 
-    return endHour.toString() + ":" + endMinute.toString() + ":" + startTimeArray[2];
+    let endTimeString =  endHour.toString() + ":" + endMinute.toString() + ":" + startTimeArray[2];
+    return this.convertToAMPM(endTimeString);
   },
 
   parseCalendar : function() {
@@ -137,6 +152,7 @@ var dataObject = {
         };
 
         dateObject.endTime = this.computeEndTime(dateObject.startTime, dateObject.durationMinutes);
+        dateObject.startTime = this.convertToAMPM(dateObject.startTime);
         this.parsedCalendar.push(dateObject);
       }.bind(this));
     }

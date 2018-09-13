@@ -1,12 +1,12 @@
 /* General styles, applied throughout the page */
 :root{
-	--fg-primary-color : #000000;
-	--primary-theme:red;
-	--border-gray: #d4dade;
+	--border-gray: #D4DADE;
 	--checked-background:#CDEAA1;
 	--empty-background:#FCEDE9;
+	--checkbox-blue:#91C8E9;
+	--checboc-hover-blue:#A6D3ED;
 	font-family: 'Fira Sans', sans-serif;
-	color:rgb(67,78,87);
+	color:#434E57;
 }
 
 /* ==========================================================================
@@ -61,9 +61,29 @@ button:focus {
    Styles applying to the poll section of the page
    ========================================================================== */
 
+/*  Style for the last row so we have a border on bottom of table*/
+.container > :last-child > * {
+	border-bottom: solid 1px var(--border-gray);
+}
+
 .row {
 	display: flex;
-	height:50px;
+	height:46px;
+}
+
+/*  Style for the last row so we have a border on right of table*/
+.row > :last-child {
+	border-right: solid 1px var(--border-gray);
+}
+
+.top-left {
+	min-width: 216px;
+	max-width: 216px;
+	min-height: 169px;
+	max-height: 169px;
+
+	border-left: solid 1px var(--border-gray);
+	border-top : solid 1px var(--border-gray);
 }
 
 /* Styles for the date and hour boxes
@@ -105,6 +125,15 @@ button:focus {
 	font-size: 14px;
 }
 
+.time-interval :last-child::before {
+	content: " ";
+	display: block;
+	margin: 0px auto;
+	width : 2px;
+	height: 4px;
+	border-left: solid 1px var(--border-gray);
+}
+
 
 /* Styles for the partcipant table poll table
   ========================================================================== */
@@ -112,7 +141,7 @@ button:focus {
 .decision-box {
 	flex: 1 1 30px;
 	width:auto;
-	height:49px;
+	height:45px;
 	border-left: 1px solid var(--border-gray);
 	border-bottom: 1px solid white;
 	min-width: 72px;
@@ -129,12 +158,12 @@ button:focus {
 
 
 .name-box {
-		flex: 2 1 30px;
-		height:49px;
+		flex: 3 1 30px;
+		height:45px;
 		border-left: 1px solid var(--border-gray);
 		border-bottom: 1px solid white;
-		min-width:120px;
-		max-width:120px;
+		min-width:216px;
+		max-width:216px;
 }
 
 /* ================ */
