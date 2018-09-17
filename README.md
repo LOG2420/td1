@@ -39,3 +39,4 @@ Le javascript est présentement tout sur la branche alex
 	$ python3 -m http.server --cgi 3000
 
 La commande va trouver le index.html et le render comme la base file
+
