@@ -1,8 +1,279 @@
+/* General styles, applied throughout the page */
 :root{
-	--fg-primary-color : #000000;
-	--primary-theme:red;
+	--border-gray: #D4DADE;
+	--checked-background:#CDEAA1;
+	--empty-background:#FCEDE9;
+	--checkbox-blue:#91C8E9;
+	--checkbox-hover-blue:#A6D3ED;
+	--font-light-gray:#8696B6;
+
+	font-family: 'Fira Sans', sans-serif;
+	color:#434E57;
 }
 
-h1 {
-	color:var(--primary-theme);
+/* ==========================================================================
+   Styles applying to the header sections (static through layout swithches)
+   ========================================================================== */
+
+
+/* Styles applying the time meta data
+   ========================================================================== */
+
+.time-meta-data {
+	font-size:16px;
+	margin-top:32px;
+	padding: 32px 16px;
 }
+
+.time-zone {
+	font-weight:500;
+}
+
+
+/* Styles for the layout-switch buttons
+   ========================================================================== */
+
+button {
+	border:0px solid white;
+	border-bottom : 2px solid white;
+	background-color: white;
+	width:auto;
+	padding: 4px 16px;
+	height:auto;
+	font-size:16px;
+	font-weight:500;
+	cursor:pointer;
+}
+
+button:focus {
+	outline:0px solid white;
+}
+
+.clicked {
+	border-bottom : 2px solid black;
+}
+
+.toggle-options {
+	padding: 16px 0px;
+	width:175px;
+	margin:auto
+}
+
+/* ==========================================================================
+   Styles applying to the poll section of the page
+   ========================================================================== */
+
+/* General styles for different rows
+ ========================================================================== */
+
+.row {
+	display: flex;
+	height:46px;
+}
+
+/*  Style for the first row of the container (for the dates)*/
+.container > :first-child {
+	height:169px;
+}
+
+/*  Style for the third row of the container (the input boxes)*/
+.container > :nth-child(3) {
+	height:56px;
+}
+
+/*  Style for the last row so we have a border on bottom of table*/
+.container > :last-child > * {
+	border-bottom: solid 1px var(--border-gray);
+}
+
+/*  Style for the last cell so we have a border on right of table*/
+.row > :last-child {
+	border-right: solid 1px var(--border-gray);
+}
+
+
+/* Styles for the date and hour boxes
+  ========================================================================== */
+
+.option-box {
+	height:167px;
+	width:72px;
+	border: 1px solid var(--border-gray);
+	border-right: 0px solid white;
+}
+
+.date {
+	width:inherit;
+	height:80px;
+	padding: 16px 0px;
+	text-align: center;
+}
+
+.date-word {
+	font-size:14px;
+}
+
+.date-number {
+	margin: 0px 4px;
+	font-size: 26px;
+	font-weight:500;
+	color:black;
+}
+
+.time-interval {
+	height: 39px;
+	padding: 0px 4px;
+	padding-bottom: 16px
+}
+
+.hour {
+	text-align: center;
+	font-size: 14px;
+}
+
+.time-interval :last-child::before {
+	content: " ";
+	display: block;
+	margin: 0px auto;
+	width : 2px;
+	height: 4px;
+	border-left: solid 1px var(--border-gray);
+}
+
+
+/* Styles for the partcipant table poll table
+  ========================================================================== */
+
+.table-cell {
+	flex: 1 1 30px;
+	width:auto;
+	height:45px;
+	border-left: 1px solid var(--border-gray);
+	border-bottom: 1px solid white;
+	min-width: 72px;
+	max-width: 72px;
+}
+
+.tally {
+	border-bottom: 1px solid var(--border-gray);
+}
+
+.tally-result {
+	height: 19px;
+	text-align: center;
+	margin: 13px 0px;
+}
+
+.checked {
+	background-color:var(--checked-background)
+}
+
+.checkmark {
+	width:24px;
+	height:24px;
+	color:blue;
+	margin: 0px auto;
+}
+
+.empty {
+	background-color:var(--empty-background);
+}
+
+.checkbox {
+	height: 24px;
+	background-color:var(--checkbox-blue);
+	height:56px;
+	border-left:1px solid white;
+	border-right:0px solid white;
+	border-bottom:1px solid white;
+}
+
+label {
+	width : 100%;
+	height: 100%;
+}
+
+.input-checkbox {
+	height: 24px;
+	width: 24px;
+	border-radius: 4px;
+	margin: 13px auto;
+	border:var(--border-gray);
+	background-color:white;
+}
+
+input[type="checkbox"]:hover {
+	background-color:var(--checkbox-hover-blue);
+}
+
+
+/* Styles pertaining to the left most column
+  ========================================================================== */
+
+/*  This will target the first cell of every row*/
+.row >:first-child {
+	min-width:216px;
+	max-width:216px;
+
+	border-left: 1px solid var(--border-gray);
+}
+
+.top-left {
+	min-height: 167px;
+	max-height: 167px;
+
+	border-left: solid 1px var(--border-gray);
+	border-top : solid 1px var(--border-gray);
+	border-bottom: solid 1px var(--border-gray);
+}
+
+.n-of-participants-box {
+	border-bottom : solid 1px var(--border-gray);
+
+}
+
+.name-box {
+		flex: 3 1 30px;
+		border-bottom: 1px solid white;
+		border-top:1px solid var(--border-gray);
+}
+
+.name-input {
+	height: 56px;
+	background-color: var(--checkbox-blue);
+	/* border-top:1px solid var(--border-gray); */
+}
+
+input[type="text"] {
+	height: 41px;
+	width:152px;
+	border-radius:6px;
+	border: 0px solid white;
+	margin:7px auto;
+	font-family: 'Fira Sans', sans-serif;
+	font-size: 16px;
+		padding-left:8px;
+}
+
+input[type="text"]::placeholder{
+	font-size: 16px;
+	color:var(--font-light-gray);
+	font-family: 'Fira Sans', sans-serif;
+	padding-left:8px;
+}
+
+.n-of-participants-box {
+
+}
+
+/* ================ */
+.table-poll {
+
+}
+
+
+/* ==========================================================================
+   Styles applying to the calendar section of the page
+   ========================================================================== */
+.calendar {
+	}
