@@ -28,7 +28,8 @@
 
 		<div class="table-poll" style="display:block;">
 			<div class="container">
-				<div class="row" style="height:169px;">
+				<!-- Do this style in CSS, first row of the container -->
+				<div class="row">
 					<div class="top-left">
 					</div>
 					<!-- <div class="option-box">
@@ -44,6 +45,34 @@
 
 					</div> -->
 
+				</div>
+
+				<div class="row">
+					<div class=" n-of-participants-box">
+						<span class="n-of-participants">5</span> Participants
+					</div>
+					<!-- <div class="table-cell tally">
+						<div class="tally-result">
+							<span class="tally-number">3</span> icon
+						</div>
+					</div> -->
+					<!--  Here a number of tally boxes are dynamically generated
+				depending on the number of available dates-->
+				</div>
+				<div class="row input-row">
+					<div class="name-input">
+						<span class="incon"> ICON</span>
+						<input type="text" name="name-input" value="" placeholder="Enter your name">
+					</div>
+					<!-- <div class="table-cell checkbox">
+						<label for="">
+							<div class="input-checkbox">
+
+							</div>
+						</label>
+					</div> -->
+					<!-- Chexkboxes are dynamically generated depending on the number of
+				 participants-->
 				</div>
 			</div>
 		</div>

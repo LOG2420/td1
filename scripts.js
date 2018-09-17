@@ -45,7 +45,7 @@ let intel = {
 	{
 	    Nom : "Michel",
 	    Statut : "EnCours",
-	    Availabilities : [0,0,0,0,0,0,0,0,0]
+	    Availabilities : [1,0,0,0,0,0,0,0,0]
 	},
 	{
 	    Nom : "Mathieu",
@@ -92,8 +92,14 @@ var dataObject = {
     }.bind(this))
   },
 
-  tallyCalculator : function(){
-
+  tallyCalculator : function(dayPosition){
+    let tally = 0;
+    this.participants.forEach(function(participant) {
+      if (participant.availabilities[dayPosition]) {
+        tally++;
+      }
+    });
+    return tally;
   },
 
   convertToAMPM : function(timeString) {
@@ -241,7 +247,25 @@ function constructDateBox(dateInformation){
 }
 
 function constructTallyBox(tally) {
+  let box = constructTableCell();
+  box.classList.add("tally");
 
+  let tallyNumber = document.createElement("span");
+  tallyNumber.classList.add("tally-number");
+  tallyNumber.innerText = tally.toString();
+  box.appendChild(tallyNumber);
+  return box;
+}
+
+function constructCheckBox() {
+  let box = constructTableCell();
+  box.classList.add("checkbox");
+
+  let input = document.createElement("div");
+  input.classList.add("input-checkbox");
+  box.appendChild(input);
+
+  return box;
 }
 
 
@@ -266,9 +290,9 @@ function constructNameBox(name) {
  * @return
  * The box basic decision box html element.
  */
-function constructDecisionBox() {
+function constructTableCell() {
   let box = document.createElement("div");
-  box.classList.add("decision-box");
+  box.classList.add("table-cell");
   return box;
 }
 
@@ -281,8 +305,9 @@ function constructDecisionBox() {
  * @return
  * The box basic decision box html element.
  */
-function constructCheckBox() {
-  box = constructDecisionBox();
+function constructGreenBox() {
+  box = constructTableCell();
+  box.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>';
   box.classList.add("checked");
   return box;
 }
@@ -297,7 +322,7 @@ function constructCheckBox() {
  * The box basic decision box html element.
  */
 function constructEmptyBox() {
-  box = constructDecisionBox();
+  box = constructTableCell();
   box.classList.add("empty");
   return box;
 }
@@ -311,32 +336,55 @@ function constructEmptyBox() {
  * The box basic decision box html element.
  */
 function ConstructTable(intel) {
-  let container = document.querySelector(".table-poll .container");
 
-  let row = document.querySelector(".container> :first-child")
+  let container = document.querySelector(".table-poll .container");
+  let rowDates = document.querySelector(".container> :first-child");
+  let rowTally = document.querySelector(".container> :nth-child(2)");
+  let rowInput = document.querySelector(".container> :nth-child(3)");
+
+  let i = 0
   intel.parsedCalendar.forEach(function(dateObject){
-    row.appendChild(constructDateBox(dateObject));
+    rowDates.appendChild(constructDateBox(dateObject));
+    rowTally.appendChild(constructTallyBox(intel.tallyCalculator(i)));
+    rowInput.appendChild(constructCheckBox());
+    i++;
   });
+
 
   // Constructing the partcipant table
   intel.participants.forEach(function(participant) {
-    let row = document.createElement("div");
-    console.log(row);
-    row.classList.add("row");
-    console.log(participant)
-    console.log(participant.name);
-    row.appendChild(constructNameBox(participant.name));
-    participant.availabilities.forEach(function(isAvailable){
-      if(isAvailable) {
-        row.appendChild(constructCheckBox());
-      }
-      else {
-        row.appendChild(constructEmptyBox());
-      }
-    });
-    container.appendChild(row);
-  })
+    if(participant.status == "EnCours"){
+      document.querySelector('input[type="text"]').value = participant.name;
+      let i = 0
+      intel.parsedCalendar.forEach(function(dateObject){
+        if(participant.availabilities[i]){
+          // the +1 is here to skip the first column
+          rowDates.children[i+1].style.backgroundColor = "#CDEAA1";
+          rowTally.children[i+1].style.backgroundColor = "#CDEAA1";
+          rowInput.children[i+1].classList.add("checked");
 
+        }
+        i++;
+      });
+    }
+    else{
+      let row = document.createElement("div");
+      console.log(row);
+      row.classList.add("row");
+      console.log(participant);
+      console.log(participant.name);
+      row.appendChild(constructNameBox(participant.name));
+      participant.availabilities.forEach(function(isAvailable){
+        if(isAvailable) {
+          row.appendChild(constructGreenBox());
+        }
+        else {
+          row.appendChild(constructEmptyBox());
+        }
+      });
+      container.appendChild(row);
+    }
+  })
 }
 
 
