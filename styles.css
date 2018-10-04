@@ -107,6 +107,7 @@ button:focus {
 .icon-wrap-green {
 	width:24px;
 	margin:10px auto;
+	pointer-events: none;
 }
 
 
@@ -207,6 +208,7 @@ button:focus {
 	border-bottom: 1px solid white;
 	min-width: 72px;
 	max-width: 72px;
+	position: relative;
 }
 
 .tally {
@@ -296,7 +298,7 @@ input[type="checkbox"]:hover {
 .name-box {
 		flex: 3 1 30px;
 		border-bottom: 1px solid white;
-		border-top:1px solid var(--border-gray);
+		/* border-top:1px solid var(--border-gray); */
 }
 
 .name-input {
@@ -307,10 +309,12 @@ input[type="checkbox"]:hover {
 
 input[type="text"] {
 	height: 41px;
-	width:152px;
+	width:137px;
+
 	border-radius:6px;
 	border: 0px solid white;
 	margin:7px auto;
+	margin-left:15px;
 	font-family: 'Fira Sans', sans-serif;
 	font-size: 16px;
 		padding-left:8px;
@@ -323,20 +327,41 @@ input[type="text"]::placeholder{
 	padding-left:8px;
 }
 
-.n-of-participants-box {
-
+.participant-image {
+	float:left;
+	padding-left: 16px;
+	padding-top: 12px;
 }
+
+.participant-image img {
+	width: 22px;
+	height: 22px;
+}
+
+.participant-image+span {
+	padding-top: 12px;
+	float:left;
+	padding-left: 12px;
+}
+
+.n-of-participants-box {
+	color: #8696A2;
+	font-weight: 500;
+}
+
+.n-of-participants-box div {
+	padding-top:13px;
+	padding-left: 16px;
+}
+
 
 /* ================ */
-.table-poll {
-
-}
 
 .hover-div {
 	background-color:white;
 	border-radius: 4px;
 	width: 168px; height:190px;
-	position: relative;
+	position: absolute;
 	/* top is lifted above the realative box as to be 5 pixels over */
 	/* left is computed with this equation: left = 1/2(wHoverDiv) - 1/2(wTableCell) */
 	/* The width of a table cell is currently 72px */
