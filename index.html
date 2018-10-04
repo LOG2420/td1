@@ -5,26 +5,49 @@
 	<meta charset="utf-8">
 	<title>Équipe 819 --- TD1</title>
 	<link rel="stylesheet" type="text/css" href="styles.css">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/evil-icons/1.10.1/evil-icons.min.jss"> -->
 	<link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" rel="stylesheet">
 </head>
 
 <body>
-	<!-- Purement en front end -->
-	<div class="encompassing-box">
+		<!-- Purement en front end -->
+		<div class="encompassing-box">
 
-			<div class="time-meta-data">
-				<!-- <div data-icon="ei-clock"></div> -->
-				All time displayed in <span class="time-zone"> America/New York</span>
+				<div class="time-meta-data">
+					<!-- <div data-icon="ei-clock"></div> -->
+					All time displayed in <span class="time-zone"> America/New York</span>
+				</div>
+
+				<div class="toggle-options">
+					<button type="button" name="toggle-to-table" class="clicked">Table</button>
+					<button type="button" name="toggle-to-calendar">Calendar</button>
+				</div>
+
 			</div>
 
-			<div class="toggle-options">
-				<button type="button" name="toggle-to-table" class="clicked">Table</button>
-				<button type="button" name="toggle-to-calendar">Calendar</button>
-			</div>
-
+<<<<<<< HEAD
 	</div>
+=======
+>>>>>>> 06cefc120ac6baf1228597e93bfa437266b27706
 
+			<div class="table-poll" style="display:block;">
+				<div class="container">
+					<!-- Do this style in CSS, first row of the container -->
+					<div class="row">
+						<div class="top-left">
+						</div>
+						<!-- <div class="option-box">
+							<div class="date">
+								<div class="date-word">AUG</div>
+								<div class="date-number">27</div>
+								<div class="date-word">MON</div>
+							</div>
+							<div class="time-interval">
+								<div class="hour"> 12:00AM</div>
+								<div class="hour"> 12:00PM</div>
+							</div>
 
+						</div> -->
 	<div class="table-poll" style="display:block;">
 		<div class="container">
 			<div class="row">
@@ -34,14 +57,12 @@
 
 			<div class="row">
 				<div class=" n-of-participants-box">
-					<div>
-							<span class="n-of-participants">5</span> Participants
-					</div>
+					<span class="n-of-participants">5</span> Participants
 				</div>
+			</div>
 
 				<!--  Here a number of tally boxes are dynamically generated
 			depending on the number of available dates-->
-			</div>
 			<div class="row input-row">
 				<div class="name-input">
 					<div class="participant-image">
@@ -55,15 +76,52 @@
 		</div>
 	</div>
 
-
 	<div class="calendar" style="display:none">
+		<div class="week">
+			<object type="image/svg+xml" data="chevron-left.svg">Your browser does not support SVGs</object>
+			<p>Aug 26 - Sep 1, 2018</p>
+		</div>
+		<div class="calendar-grid">
+			<div class="month-day">
+				<div class="calendar-space"></div>
+				<div>26</div>
+				<div>27</div>
+				<div>28</div>
+				<div>29</div>
+				<div>30</div>
+				<div>31</div>
+				<div>1</div>
+			</div>
+			<div class="weekday">
+				<td>SUN</td>
+				<td>MON</td>
+				<td>TUE</td>
+				<td>WEN</td>
+				<td>THU</td>
+				<td>FRI</td>
+				<td>SAT</td>
+			</div>
+		</div>
+
+		<!-- <div class="table-cell checkbox">
+			<label for="">
+				<div class="input-checkbox">
+
+				</div>
+			</label>
+		</div> -->
+		<!-- Chexkboxes are dynamically generated depending on the number of
+	participants-->
 	</div>
 
-<!-- Feather Icons -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.7.3/feather.js">
 
-</script>
-	<script type="text/javascript" src="scripts.js"></script>
+		<script
+	src="https://code.jquery.com/jquery-3.3.1.min.js"
+	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/evil-icons@1.9.0/assets/evil-icons.min.js"></script>
+
+		<script type="text/javascript" src="scripts.js"></script>
 </body>
 
 </html>

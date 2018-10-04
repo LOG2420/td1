@@ -3,6 +3,7 @@
 	--border-gray: #D4DADE;
 	--checked-background:#CDEAA1;
 	--empty-background:#FCEDE9;
+	--all-background:#FAF7F5;
 	--checkbox-blue:#91C8E9;
 	--checkbox-hover-blue:#A6D3ED;
 	--font-light-gray:#8696B6;
@@ -17,6 +18,11 @@
    Styles applying to the header sections (static through layout swithches)
    ========================================================================== */
 
+/* Styles applying to the background
+   ========================================================================== */
+.table-background{
+	background-color: var(--all-background);
+}
 
 /* Styles applying the time meta data
    ========================================================================== */
@@ -44,6 +50,7 @@ button {
 	height:auto;
 	font-size:16px;
 	font-weight:500;
+	color:#434E57;
 	cursor:pointer;
 }
 
@@ -393,7 +400,8 @@ width: 100%;
 .calendar-grid {
 	border: solid 1px var(--border-gray);
 	display: grid;
-	grid-template-columns: auto auto auto auto auto auto auto auto;
+	grid-template-columns: 100px 100px 100px 100px 100px 100px;
+	margin-right: 12px;
 	color: #282F34;
 }
 
@@ -403,17 +411,29 @@ width: 100%;
 	padding-left:43%;
 }
 
-.calendar-grid > div {
+.calendar-grid > tr {
 	font-family: 'Fira Sans';
 	font-weight: 500;
 	font-size: 20px;
 }
 
-.weekday-row {
+.weekday {
 	font-size: 13px;
 	font-family: 'Fira Sans';
 	text-transform: uppercase;
 	/* font-weight:  */
+}
+
+.month-day {
+	font-weight: 500;
+	font-style: normal;
+	font-family: "Fire Sans";
+	font-size: 24px;
+}
+
+.calendar-space {
+	padding-left: 20px;
+	color:transparent;
 }
 
 
