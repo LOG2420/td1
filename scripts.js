@@ -23,75 +23,65 @@
 *
 */
 
+
+const activeGreen = "#EBF7D4";
+
 // ====================================================
 // ==================== Model =========================
 // ====================================================
 
-let intel = {
-    Calendrier : [
-	["Mon Aug 27 2018 10:00:00 GMT-0400 (EDT)", 120],
-	["Mon Aug 27 2018 14:00:00 GMT-0400 (EDT)", 120],
-	["Tue Aug 28 2018 10:00:00 GMT-0400 (EDT)", 120],
-	["Tue Aug 28 2018 14:00:00 GMT-0400 (EDT)", 120],
-	["Wed Aug 29 2018 10:00:00 GMT-0400 (EDT)", 120],
-	["Wed Aug 29 2018 14:00:00 GMT-0400 (EDT)", 120],
-	["Thu Aug 30 2018 10:00:00 GMT-0400 (EDT)", 120],
-	["Fri Aug 31 2018 10:00:00 GMT-0400 (EDT)", 120],
-	["Fri Aug 31 2018 14:00:00 GMT-0400 (EDT)", 120]
-    ],
+/**
+ * A data object which will serve as as an object's prototype
+ * for function delegation
+ * @typedef {Object} DataObject
+ * @property {function} __init__ - The function which
+ * fills the object with data received from Json information
+ * @property {function} tallyCalculator - The function which
+ * internally computes the the number of participants which 
+ * are available for a given dates
+ * @property {function} convertToAMPM - A function which takes
+ * a time string formatted to a 24:00 clock and reformats it
+ * for a 12:00 clock
+ * @property {function} computeEndTime - A function which takes
+ * a time string and a time interval and returns a time string 
+ * that represents start+interval
+ * @property {function} parseCalendar - A function that modifies
+ * the received calendar from the JSON as to make it easy to use
+ * in the consructor functions
+ */
 
-    Participants :
-    [
-	{
-	    Nom : "Michel",
-	    Statut : "EnCours",
-	    Availabilities : [1,0,0,0,0,0,0,0,0]
-	},
-	{
-	    Nom : "Mathieu",
-	    Statut : "ComplÃ©tÃ©",
-	    Availabilities : [1,1,1,1,1,1,0,0,1]
-	},
-	{
-	    Nom : "Kasra",
-	    Statut : "ComplÃ©tÃ©",
-	    Availabilities : [0,0,0,0,1,1,1,0,0]
-	},
-	{
-	    Nom : "Audrey",
-	    Statut : "ComplÃ©tÃ©",
-	    Availabilities : [0,1,1,1,0,0,1,1,1]
-	},
-	{
-	    Nom : "Antoine",
-	    Statut : "ComplÃ©tÃ©",
-	    Availabilities : [1,1,1,1,1,1,0,0,0]
-	},
-	{
-	    Nom : "Michel",
-	    Statut : "ComplÃ©tÃ©",
-	    Availabilities : [1,0,1,0,1,1,1,0,1]
-	}
-    ]
-}
-
-// We could make a OLOO architecture
-
-var dataObject = {
-  __init__ : function(intel) {
-    this.unparsedCalendar = intel.Calendrier;
+var DataObject = {
+  /**
+   * @function
+   * The function which
+   * fills the object with data received from Json information
+   * 
+   * @param {Object} jsonData - The json data that will be placed into 
+   * the DataObject instance
+   */
+  __init__ : function(jsonData) {
+    this.unparsedCalendar = jsonData.Calendrier;
     this.participants = [];
-    intel.Participants.forEach(function(Participant){
+    jsonData.Participants.forEach(function(Participant){
       let participant = {
         name : Participant.Nom,
         status : Participant.Statut,
-        availabilities :Participant.Availabilities
+        availabilities :Participant["Disponibilités"]
       };
 
       this.participants.push(participant);
     }.bind(this))
   },
 
+  /**
+   * @function
+   * The function which
+   * internally computes the the number of participants which 
+   * are available for a given dates
+   * 
+   * @param {Number} dayPosition - The index of the dayPosition in the 
+   * parsedCalendar Array
+   */
   tallyCalculator : function(dayPosition){
     let tally = 0;
     this.participants.forEach(function(participant) {
@@ -102,6 +92,17 @@ var dataObject = {
     return tally;
   },
 
+  /**
+   * @function
+   * A function which takes
+   * a time string formatted to a 24:00 clock and reformats it
+   * for a 12:00 clock
+   * 
+   * @param {String} timeString - The tim string in format "13:00" that will
+   * be converted into an AMPM time string of formate "1:00 PM"
+   * 
+   * @returns The converted time String
+   */
   convertToAMPM : function(timeString) {
     let timeArray = timeString.split(":");
 
@@ -116,6 +117,17 @@ var dataObject = {
     }
   },
 
+  /**
+   * @function
+   * A function which takes
+   * a time string and a time interval and returns a time string 
+   * that represents start+interval
+   * 
+   * @param {String} startTimeString - The start string (formatted in 24:00 time)
+   * @param {String} durationMinutes - The length of time in minutes
+   * 
+   * @returns an endTime converted to AMPM time
+   */
   computeEndTime: function(startTimeString, durationMinutes){
 
     let startTimeArray = startTimeString.split(":");
@@ -140,9 +152,14 @@ var dataObject = {
     }
 
     let endTimeString =  endHour.toString() + ":" + endMinute.toString() + ":" + startTimeArray[2];
-    return this.convertToAMPM(endTimeString);
+    return endTimeString;
   },
-
+  /**
+   * @function
+   * A function that modifies
+   * the received calendar from the JSON as to make it easy to use
+   * in the consructor functions
+   */
   parseCalendar : function() {
     if(!this.parsedCalendar){
       this.parsedCalendar = [];
@@ -159,6 +176,7 @@ var dataObject = {
 
         dateObject.endTime = this.computeEndTime(dateObject.startTime, dateObject.durationMinutes);
         dateObject.startTime = this.convertToAMPM(dateObject.startTime);
+        dateObject.endTime = this.convertToAMPM(dateObject.endTime);
         this.parsedCalendar.push(dateObject);
       }.bind(this));
     }
@@ -166,119 +184,174 @@ var dataObject = {
 
 }
 
-
-// ====================================================
-// ============= Front-end features ===================
-// ====================================================
-
-// this is going to be the fetch section of the code
-
-// Make it in promise form so i can afterwards extract the object, or just
-// pipeline in thens
-
-// $.ajax({
-// 	dataType:"json",
-// 	url:"http://www.groupes.polymtl.ca/log2420/Lab/Doodle/cal-data.json",
-// 	xhrFields: {
-// 		withCreditials:false
-// 	},
-// 	mode: 'cors',
-// 	headers:{
-// 	'Access-Control-Allow-Origin':''
-// 	}
-// })
-// 	.done(jsonObject => {
-// 		console.log(jsonObject);
-//
-// 	})
-// 	.fail(()=>{
-// 		console.log("Failure");
-// 	});
-
-
 // ====================================================
 // ============= Constructor functions ================
 // ====================================================
 
 
+// =============== Helper functions ===================
+/**
+   * @function
+   * A function which takes
+   * a time string and a time interval and returns a time string 
+   * that represents start+interval
+   * 
+   * @param {String} classNames - The names of the class to be added to the div
+   * 
+   * @returns a classified div
+   */
+function makeClassifiedDiv(classNames) {
+  let div = document.createElement("div");
+  div.classList.add.apply(div.classList, arguments);
+  return div;
+}
 
-// This part of the code will run on load to fill the information in the html from the css
-function constructDateBox(dateInformation){
-  let box = document.createElement("div");
-  box.classList.add("option-box");
 
-  let dateBox = document.createElement("div");
-  dateBox.classList.add("date");
+/**
+   * @function
+   * A function which takes
+   * a time string and a time interval and returns a time string 
+   * that represents start+interval
+   * 
+   * @param {String} iconKey - The correct key to access the icon html string
+   * contained in the icons object
+   * @param {String} iconEnvironmentClass - The class name given to the wrapper div
+   * to place the icon inside of the given environment
+   * 
+   * @returns the wrapped icon
+   */
+function makeWrappedIcon(iconKey, iconEnvironmentClass){
+  
+  let icons = {
+    checkTally: '<svg class="feather feather-tally"><use xlink:href="svg/feather-sprite.svg#check"/></svg>',
+    checkGreen: '<svg class="feather feather-green"><use xlink:href="svg/feather-sprite.svg#check"/></svg>',
+    user: '<svg class="feather feather-user"><use xlink:href="svg/feather-sprite.svg#user"/></svg>'
+  }
 
-  let month = document.createElement("div");
-  month.classList.add("date-word");
+  let wrap = makeClassifiedDiv(iconEnvironmentClass); 
+  wrap.innerHTML= icons[iconKey];
+  return wrap;
+}
+
+/**
+   * @function
+   * a function which takes dateInformation and constructs
+   * a date section with this information
+   * 
+   * @param {Object} dateInformation - an element of the parseCalendar array
+   * in the {@link DataObject} 
+   * 
+   * @returns a formatted date section
+   */
+function makeDateSection(dateInformation) {
+  let dateSection = makeClassifiedDiv("date");
+
+  let month = makeClassifiedDiv("date-word")
   month.innerText = dateInformation.month;
 
-  let number = document.createElement("div");
-  number.classList.add("date-number");
+  let number = makeClassifiedDiv("date-number")
   number.innerText = dateInformation.day;
 
-  let weekDay = document.createElement("div");
-  weekDay.classList.add("date-word");
+  let weekDay = makeClassifiedDiv("date-word")
   weekDay.innerText = dateInformation.weekDay;
 
-  dateBox.appendChild(month);
-  dateBox.appendChild(number);
-  dateBox.appendChild(weekDay);
+  dateSection.appendChild(month);
+  dateSection.appendChild(number);
+  dateSection.appendChild(weekDay);
 
-  box.appendChild(dateBox);
+  return dateSection;
+}
 
-  let timeInterval = document.createElement("div");
-  timeInterval.classList.add("time-interval");
+/**
+   * @function
+   * a function which takes dateInformation and constructs
+   * a time interval section (found below the time section)
+   * 
+   * @param {Object} dateInformation - an element of the parseCalendar array
+   * in the {@link DataObject} 
+   * 
+   * @returns a formatted time interval section
+   */
+function makeTimeIntervalSection(dateInformation) {
+  let timeInterval = makeClassifiedDiv("time-interval");
 
-  let startTime = document.createElement("div");
-  startTime.classList.add("hour");
+  let startTime = makeClassifiedDiv("hour");
   startTime.innerText = dateInformation.startTime;
 
-  let endTime = document.createElement("div");
-  endTime.classList.add("hour");
+  let endTime = makeClassifiedDiv("hour");
   endTime.innerText = dateInformation.endTime;
 
   timeInterval.appendChild(startTime);
   timeInterval.appendChild(endTime);
 
-  box.appendChild(timeInterval);
+  return timeInterval;
+}
+
+/**
+   * @function
+   * A function that constructs a date box from given date data by assembling
+   * the date section (top) and the time interval section (bottom)
+   * 
+   * @param {Object} dateInformation - an element of the parseCalendar array
+   * in the {@link DataObject} 
+   * 
+   * @returns a constructed date box
+   */
+function constructDateBox(dateInformation){
+  let box = makeClassifiedDiv("option-box");
+
+  box.appendChild(makeDateSection(dateInformation));
+  box.appendChild(makeTimeIntervalSection(dateInformation));
+
   return box;
 }
 
+/**
+   * @function
+   * A that makes a tally box by combining the given tally with 
+   * a check svg icon
+   * 
+   * @param tally - The tally number to insert into the tally box
+   * 
+   * @returns an endTime converted to AMPM time
+   */
 function constructTallyBox(tally) {
   let box = constructTableCell();
   box.classList.add("tally");
 
-  let tallyNumber = document.createElement("span");
-  tallyNumber.classList.add("tally-number");
+  let tallyNumber = makeClassifiedDiv("tally-number");
   tallyNumber.innerText = tally.toString();
-  box.appendChild(tallyNumber);
+
+  let wrappedIcon = makeWrappedIcon("checkTally", "tally-result");
+  wrappedIcon.appendChild(tallyNumber);
+
+  box.appendChild(wrappedIcon);
   return box;
 }
 
 function constructCheckBox() {
   let box = constructTableCell();
+  console.log(box);
   box.classList.add("checkbox");
 
-  let input = document.createElement("div");
-  input.classList.add("input-checkbox");
+  let input = makeClassifiedDiv("input-checkbox");
   box.appendChild(input);
 
   return box;
 }
 
-
-// Fucntional (missing SVG functionaly)
+/** @todo fix this function */
 function constructNameBox(name) {
-  let box = document.createElement("div");
-  box.classList.add("name-box");
-  // let svg = document.createElement("svg");
-  // let text = document.createElement("use");
+  let box = makeClassifiedDiv("name-box");
+
+  let wrappedIcon = makeWrappedIcon("user", "a");
   let nameSpan = document.createElement("span");
-  nameSpan.innerText = name
-  // box.appendChild(svg);
-  box.appendChild(nameSpan);
+  nameSpan.innerText = name;
+  wrappedIcon.appendChild(nameSpan);
+
+  box.appendChild(wrappedIcon);
+
+  // box.appendChild(nameSpan);
   return box
 }
 
@@ -291,52 +364,52 @@ function constructNameBox(name) {
  * The box basic decision box html element.
  */
 function constructTableCell() {
-  let box = document.createElement("div");
-  box.classList.add("table-cell");
-  return box;
+  return makeClassifiedDiv("table-cell");
 }
 
 
 /**
+ * @function
+ * 
  * Constructs a div.decison-box html element.
- *
- * @constructor
  *
  * @return
  * The box basic decision box html element.
  */
 function constructGreenBox() {
-  box = constructTableCell();
-  box.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>';
+
+  let wrappedIcon = makeWrappedIcon("checkGreen", "icon-wrap-green");
+  
+  let box = constructTableCell();
+  // box.innerHTML = '<svg class="feather feather-green"><use xlink:href="svg/feather-sprite.svg#check"/></svg>';
   box.classList.add("checked");
+  box.appendChild(wrappedIcon);
   return box;
 }
 
 
 /**
+ * @function
  * Constructs a div.decison-box html element.
- *
- * @constructor
- *
  * @return
  * The box basic decision box html element.
  */
 function constructEmptyBox() {
-  box = constructTableCell();
+  let box = constructTableCell();
   box.classList.add("empty");
   return box;
 }
 
 /**
+ * @function
  * Constructs a div.decison-box html element.
- *
- * @constructor
- *
  * @return
  * The box basic decision box html element.
  */
 function ConstructTable(intel) {
 
+
+  // We start by constructing the first three rows from the calendar data
   let container = document.querySelector(".table-poll .container");
   let rowDates = document.querySelector(".container> :first-child");
   let rowTally = document.querySelector(".container> :nth-child(2)");
@@ -351,16 +424,17 @@ function ConstructTable(intel) {
   });
 
 
-  // Constructing the partcipant table
+  // This forEach loop iterates over all the participants received in the json data
   intel.participants.forEach(function(participant) {
+    // When a participant's status is still ongoing, 
     if(participant.status == "EnCours"){
       document.querySelector('input[type="text"]').value = participant.name;
       let i = 0
       intel.parsedCalendar.forEach(function(dateObject){
         if(participant.availabilities[i]){
           // the +1 is here to skip the first column
-          rowDates.children[i+1].style.backgroundColor = "#CDEAA1";
-          rowTally.children[i+1].style.backgroundColor = "#CDEAA1";
+          rowDates.children[i+1].style.backgroundColor = activeGreen;
+          rowTally.children[i+1].style.backgroundColor = activeGreen;
           rowInput.children[i+1].classList.add("checked");
 
         }
@@ -369,36 +443,27 @@ function ConstructTable(intel) {
     }
     else{
       let row = document.createElement("div");
-      console.log(row);
       row.classList.add("row");
-      console.log(participant);
-      console.log(participant.name);
       row.appendChild(constructNameBox(participant.name));
-      participant.availabilities.forEach(function(isAvailable){
-        if(isAvailable) {
-          row.appendChild(constructGreenBox());
+
+      for (let index = 0; index <  participant.availabilities.length; index++) {
+        if(participant.availabilities[index]) {
+          var box = constructGreenBox();
         }
         else {
-          row.appendChild(constructEmptyBox());
+          var box = constructEmptyBox();
         }
-      });
+        box.index = index;
+        row.appendChild(box);
+        
+      }
       container.appendChild(row);
     }
   })
+
+  renderDiv.call(document.querySelector("body"), data.parsedCalendar[1], "stuff", true);
+
 }
-
-
-// On page load
-
-
-var data = Object.create(dataObject);
-
-data.__init__(intel);
-data.parseCalendar();
-
-console.log(data);
-ConstructTable(data);
-
 
 // ====================================================
 // ================== Layout Switch ===================
@@ -443,4 +508,121 @@ function cb() {
     toTableButton.classList.toggle("clicked");
 
   }
+}
+
+// On page load
+
+var data = Object.create(DataObject);
+
+fetch('cal-data.json')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+    data.__init__(myJson);
+    data.parseCalendar();
+    ConstructTable(data);
+    initFrontEnd(data);
+  })
+  .catch(function(err) {
+    console.log('Fetch Error :-S', err);
+  });
+
+// var data = Object.create(dataObject);
+
+// data.__init__(intel);
+// data.parseCalendar();
+
+// ConstructTable(data);
+
+function findAssociatedName(element) {
+  // Element will be a cell in a person's row
+  return element.parentNode.firstChild.innerText;
+}
+
+function findIfIsAvailable(element) {
+  // Element will fall into one of two classes
+  return element.classList.contains("checked");
+}
+
+function renderDiv(dateInformation){
+
+  // Create the div that will be hovering
+  let hoverDiv = document.createElement("div");
+  hoverDiv.classList.add("hover-div");
+  
+  // Construct the top part of the div and attach it to the hover div
+  let timeDateWrapper = document.createElement("div");
+  timeDateWrapper.appendChild(makeDateSection(dateInformation))
+  let timeInterval = makeTimeIntervalSection(dateInformation);
+  timeInterval.style.float = "left";
+  timeInterval.classList.add("time-interval-hover");
+  timeDateWrapper.appendChild(timeInterval);
+  hoverDiv.appendChild(timeDateWrapper);
+  
+  // Horizontal rule seperation
+  hoverDiv.appendChild(document.createElement("hr"));
+
+  // Create the bottom half of the div
+  let personNameDiv = document.createElement("div");
+  personNameDiv.classList.add("hover-person-name");
+  personNameDiv.innerText = findAssociatedName(this);
+
+  let availabilityDiv = document.createElement("div");
+  availabilityDiv.classList.add("hover-availability");
+  availabilityDiv.innerText = findIfIsAvailable(this) ? 'Voted "Yes' : "Didn't vote for this";
+
+  let bottomWrapper = document.createElement("bottomWrapper");
+  bottomWrapper.appendChild(personNameDiv);
+  bottomWrapper.appendChild(availabilityDiv);
+  hoverDiv.appendChild(bottomWrapper);
+
+  this.appendChild(hoverDiv);
+}
+
+
+function initFrontEnd(data) {
+  // Front End
+
+let cells = document.querySelectorAll(".table-cell");
+
+
+
+
+var asyncHandler = {
+  waitASecondDawg: function(action){
+    console.log("startTimer");
+    this.timeOutObject = setTimeout(action,1000);
+  },
+  holdUp: function(){
+    console.log("endTimer");
+    clearTimeout(this.timeOutObject);
+    this.timeOutObject = null;
+  }
+}
+
+let dankHandler = Object.create(asyncHandler);
+
+
+
+cells.forEach((cell)=>{
+  // Arrow function does not work because it sets bind by scope context (which 
+  // would here be the global object)
+  if(!cell.classList.contains("tally")) {
+    cell.addEventListener("mouseover", function(e){
+      let hoverDiv = document.querySelector(".hover-div")
+  
+      if(document.querySelector(".hover-div")){
+        hoverDiv.parentNode.removeChild(hoverDiv);
+      }
+      if(dankHandler.timeOutObject) {
+        dankHandler.holdUp();
+      }
+  
+      renderDivDate = renderDiv.bind(this, data.parsedCalendar[this.index])
+  
+      dankHandler.waitASecondDawg(renderDivDate);
+    })
+  }
+}) ;
 }

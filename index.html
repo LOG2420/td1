@@ -5,7 +5,6 @@
 	<meta charset="utf-8">
 	<title>Équipe 819 --- TD1</title>
 	<link rel="stylesheet" type="text/css" href="styles.css">
-	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/evil-icons/1.10.1/evil-icons.min.jss"> -->
 	<link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" rel="stylesheet">
 </head>
 
@@ -32,18 +31,6 @@
 				<div class="row">
 					<div class="top-left">
 					</div>
-					<!-- <div class="option-box">
-						<div class="date">
-							<div class="date-word">AUG</div>
-							<div class="date-number">27</div>
-							<div class="date-word">MON</div>
-						</div>
-						<div class="time-interval">
-							<div class="hour"> 12:00AM</div>
-							<div class="hour"> 12:00PM</div>
-						</div>
-
-					</div> -->
 
 				</div>
 
@@ -51,11 +38,6 @@
 					<div class=" n-of-participants-box">
 						<span class="n-of-participants">5</span> Participants
 					</div>
-					<!-- <div class="table-cell tally">
-						<div class="tally-result">
-							<span class="tally-number">3</span> icon
-						</div>
-					</div> -->
 					<!--  Here a number of tally boxes are dynamically generated
 				depending on the number of available dates-->
 				</div>
@@ -64,14 +46,7 @@
 						<span class="incon"> ICON</span>
 						<input type="text" name="name-input" value="" placeholder="Enter your name">
 					</div>
-					<!-- <div class="table-cell checkbox">
-						<label for="">
-							<div class="input-checkbox">
-
-							</div>
-						</label>
-					</div> -->
-					<!-- Chexkboxes are dynamically generated depending on the number of
+					<!-- Checkboxes are dynamically generated depending on the number of
 				 participants-->
 				</div>
 			</div>
@@ -79,18 +54,40 @@
 
 
 		<div class="calendar" style="display:none">
+			<header>
+				<div class="banner input">
+					<div class="user icon"></div>
+					<input type="text" name="name-input" value="" placeholder="Enter your name">
+				</div>
+				<div class="banner date">
+					<div class="icon left-arrow"></div>
+					<div class="weekdates"></div>
+					<div class="icons right-arrow"></div>
+				</div>
+				<div class="banner week-days">
+					<div class="day 1"></div>
+				</div>
+				<div class="hour">
+					<div class="upper">
+						<div class="upper-time"></div>
+					</div>
+					<div class="lower"></div>
+				</div>
+			</header>
 			<h1>THIS IS THE CALENDAR</h1>
 		</div>
 	</div>
 
 
 
-	<script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/evil-icons@1.9.0/assets/evil-icons.min.js"></script>
+<!-- fetch -->
+<script type="text/javascript">
 
+</script>
+<!-- Feather Icons -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.7.3/feather.js">
+
+</script>
 	<script type="text/javascript" src="scripts.js"></script>
 </body>
 

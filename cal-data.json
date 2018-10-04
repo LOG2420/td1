@@ -1,5 +1,3 @@
-// http://www.groupes.polymtl.ca/log2420/Lab/Doodle/cal-data.json
-
 {
     "Calendrier" : [
 	["Mon Aug 27 2018 10:00:00 GMT-0400 (EDT)", 120],
@@ -18,32 +16,32 @@
 	{
 	    "Nom" : "Michel",
 	    "Statut" : "EnCours",
-	    "DisponibilitÃ©s" : [0,0,0,0,0,0,0,0,0]
+	    "Disponibilités" : [0,0,0,0,0,0,0,0,0]
 	},
 	{
 	    "Nom" : "Mathieu",
-	    "Statut" : "ComplÃ©tÃ©",
-	    "DisponibilitÃ©s" : [1,1,1,1,1,1,0,0,1]
+	    "Statut" : "Complété",
+	    "Disponibilités" : [1,1,1,1,1,1,0,0,1]
 	},
 	{
 	    "Nom" : "Kasra",
-	    "Statut" : "ComplÃ©tÃ©",
-	    "DisponibilitÃ©s" : [0,0,0,0,1,1,1,0,0]
+	    "Statut" : "Complété",
+	    "Disponibilités" : [0,0,0,0,1,1,1,0,0]
 	},
 	{
 	    "Nom" : "Audrey",
-	    "Statut" : "ComplÃ©tÃ©",
-	    "DisponibilitÃ©s" : [0,1,1,1,0,0,1,1,1]
+	    "Statut" : "Complété",
+	    "Disponibilités" : [0,1,1,1,0,0,1,1,1]
 	},
 	{
 	    "Nom" : "Antoine",
-	    "Statut" : "ComplÃ©tÃ©",
-	    "DisponibilitÃ©s" : [1,1,1,1,1,1,0,0,0]
+	    "Statut" : "Complété",
+	    "Disponibilités" : [1,1,1,1,1,1,0,0,0]
 	},
 	{
 	    "Nom" : "Michel",
-	    "Statut" : "ComplÃ©tÃ©",
-	    "DisponibilitÃ©s" : [1,0,1,0,1,1,1,0,1]
+	    "Statut" : "Complété",
+	    "Disponibilités" : [1,0,1,0,1,1,1,0,1]
 	}
     ]
 }
