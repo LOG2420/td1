@@ -345,12 +345,15 @@ function constructCheckBox() {
 function constructNameBox(name) {
   let box = makeClassifiedDiv("name-box");
 
-  let wrappedIcon = makeWrappedIcon("user", "a");
+  let wrappedImage = makeClassifiedDiv("participant-image");
+  wrappedImage.innerHTML = '<img src="images/particip2.png"></img>';
   let nameSpan = document.createElement("span");
+  
   nameSpan.innerText = name;
-  wrappedIcon.appendChild(nameSpan);
+  // wrappedIcon.appendChild(nameSpan);
 
-  box.appendChild(wrappedIcon);
+  box.appendChild(wrappedImage);
+  box.appendChild(nameSpan);
 
   // box.appendChild(nameSpan);
   return box
@@ -586,13 +589,15 @@ let cells = document.querySelectorAll(".table-cell");
 
 
 var asyncHandler = {
+  timerN : 0,
   waitASecondDawg: function(action){
-    console.log("startTimer");
+    console.log(this.timerN.toString() + "startTimer");
     this.timeOutObject = setTimeout(action,1000);
   },
   holdUp: function(){
-    console.log("endTimer");
+    console.log(this.timerN.toString() + "endTimer");
     clearTimeout(this.timeOutObject);
+    this.timerN++;
     this.timeOutObject = null;
   }
 }
@@ -605,7 +610,7 @@ cells.forEach((cell)=>{
   // Arrow function does not work because it sets bind by scope context (which 
   // would here be the global object)
   if(!cell.classList.contains("tally")) {
-    cell.addEventListener("mouseover", function(e){
+    cell.addEventListener("mouseenter", function(e){
       let hoverDiv = document.querySelector(".hover-div")
   
       if(document.querySelector(".hover-div")){
