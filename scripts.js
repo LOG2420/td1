@@ -184,6 +184,7 @@ var DataObject = {
 
 }
 
+
 // ====================================================
 // ============= Constructor functions ================
 // ====================================================
@@ -509,31 +510,24 @@ function cb() {
 
   }
 }
+// ====================================================
+// ============= Front-end features ===================
+// ====================================================
 
-// On page load
+function selectDate(){
+  $(".option-box").addClass("selected-background");
+  $(".tally").addClass("selected-background");
+  document.getElementsByClassName("input-checkbox").checked = true;
 
-var data = Object.create(DataObject);
+}
+document.getElementsByClassName("input-checkbox").addEventListener("click", selectDate);
 
-fetch('cal-data.json')
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(myJson) {
-    data.__init__(myJson);
-    data.parseCalendar();
-    ConstructTable(data);
-    initFrontEnd(data);
-  })
-  .catch(function(err) {
-    console.log('Fetch Error :-S', err);
-  });
+function hoverCheckBox() {
+  
+}
 
-// var data = Object.create(dataObject);
+document.addEventListener("mouseover", joverCheckBox) //??
 
-// data.__init__(intel);
-// data.parseCalendar();
-
-// ConstructTable(data);
 
 function findAssociatedName(element) {
   // Element will be a cell in a person's row
@@ -626,3 +620,23 @@ cells.forEach((cell)=>{
   }
 }) ;
 }
+
+
+// ==========================================================
+// =================== Page init ============================
+// ==========================================================
+var data = Object.create(DataObject);
+
+fetch('cal-data.json')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+    data.__init__(myJson);
+    data.parseCalendar();
+    ConstructTable(data);
+    initFrontEnd(data);
+  })
+  .catch(function(err) {
+    console.log('Fetch Error :-S', err);
+  });

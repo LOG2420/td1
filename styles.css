@@ -142,11 +142,16 @@ button:focus {
 /* Styles for the date and hour boxes
   ========================================================================== */
 
+
 .option-box {
 	height:151px;
 	width:72px;
 	border: 1px solid var(--border-gray);
 	border-right: 0px solid white;
+}
+
+.selected-background {
+	background: #EBF7D4;
 }
 
 .date {
@@ -351,46 +356,39 @@ hr {
 /* ==========================================================================
    Styles applying to the calendar section of the page
    ========================================================================== */
-.calendar {
-	display: flex;
+
+.name-input-calendar {
+height: 56px;
+padding-left: 43%;
+background-color: var(--checkbox-blue);
+width: 100%;
+/* border-top:1px solid var(--border-gray); */
 }
 
-.banner {
-	width:100%;
+.calendar-grid {
+	border: solid 1px var(--border-gray);
+	display: grid;
+	grid-template-columns: auto auto auto auto auto auto auto auto;
+	color: #282F34;
 }
 
-.banner.input {
-	background-color : var(--icon-blue);
-	height:56px;
-	border-top: 1px solid var(--border-gray);
-	border-bottom: 1px solid var(--border-gray);
+.week {
+	font-family: 'Fira Sans';
+	font-size: 20px;
+	padding-left:43%;
 }
 
-.banner.date {
-	height:50px;
-	padding: 12px 8px;
+.calendar-grid > div {
+	font-family: 'Fira Sans';
+	font-weight: 500;
+	font-size: 20px;
 }
 
-.banner.date {
-	height: 69.5px
+.weekday-row {
+	font-size: 13px;
+	font-family: 'Fira Sans';
+	text-transform: uppercase;
+	/* font-weight:  */
 }
-	/* <header>
-	<div class="banner input">
-		<div class="user icon"></div>
-		<input type="text" name="name-input" value="" placeholder="Enter your name">
-	</div>
-	<div class="banner date">
-		<div class="icon left-arrow"></div>
-		<div class="weekdates"></div>
-		<div class="icons right-arrow"></div>
-	</div>
-	<div class="banner week-days">
-		<div class="day 1"></div>
-	</div>
-	<div class="hour">
-		<div class="upper">
-			<div class="upper-time"></div>
-		</div>
-		<div class="lower"></div>
-	</div>
-</header> */
+
+
