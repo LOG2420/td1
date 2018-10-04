@@ -56,7 +56,8 @@ button:focus {
 .toggle-options {
 	padding: 16px 0px;
 	width:175px;
-	margin:auto
+	margin:auto;
+	text-align:center;
 }
 
 /* ==========================================================================
@@ -95,11 +96,16 @@ button:focus {
 /* Styles for the date and hour boxes
   ========================================================================== */
 
+
 .option-box {
 	height:167px;
 	width:72px;
 	border: 1px solid var(--border-gray);
 	border-right: 0px solid white;
+}
+
+.selected-background {
+	background: #EBF7D4;
 }
 
 .date {
@@ -275,5 +281,41 @@ input[type="text"]::placeholder{
 /* ==========================================================================
    Styles applying to the calendar section of the page
    ========================================================================== */
+
+.name-input-calendar {
+height: 56px;
+padding-left: 43%;
+background-color: var(--checkbox-blue);
+width: 100%;
+/* border-top:1px solid var(--border-gray); */
+}
+
+.calendar-grid {
+	border: solid 1px var(--border-gray);
+	display: grid;
+	grid-template-columns: auto auto auto auto auto auto auto auto;
+	color: #282F34;
+}
+
+.week {
+	font-family: 'Fira Sans';
+	font-size: 20px;
+	padding-left:43%;
+}
+
+.calendar-grid > div {
+	font-family: 'Fira Sans';
+	font-weight: 500;
+	font-size: 20px;
+}
+
+.weekday-row {
+	font-size: 13px;
+	font-family: 'Fira Sans';
+	text-transform: uppercase;
+	font-weight: 
+}
+
 .calendar {
+
 	}

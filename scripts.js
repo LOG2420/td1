@@ -167,34 +167,6 @@ var dataObject = {
 }
 
 
-// ====================================================
-// ============= Front-end features ===================
-// ====================================================
-
-// this is going to be the fetch section of the code
-
-// Make it in promise form so i can afterwards extract the object, or just
-// pipeline in thens
-
-// $.ajax({
-// 	dataType:"json",
-// 	url:"http://www.groupes.polymtl.ca/log2420/Lab/Doodle/cal-data.json",
-// 	xhrFields: {
-// 		withCreditials:false
-// 	},
-// 	mode: 'cors',
-// 	headers:{
-// 	'Access-Control-Allow-Origin':''
-// 	}
-// })
-// 	.done(jsonObject => {
-// 		console.log(jsonObject);
-//
-// 	})
-// 	.fail(()=>{
-// 		console.log("Failure");
-// 	});
-
 
 // ====================================================
 // ============= Constructor functions ================
@@ -444,3 +416,21 @@ function cb() {
 
   }
 }
+
+// ====================================================
+// ============= Front-end features ===================
+// ====================================================
+
+function selectDate(){
+  $(".option-box").addClass("selected-background");
+  $(".tally").addClass("selected-background");
+  document.getElementsByClassName("input-checkbox").checked = true;
+
+}
+document.getElementsByClassName("input-checkbox").addEventListener("click", selectDate);
+
+function hoverCheckBox() {
+  
+}
+
+document.addEventListener("mouseover", joverCheckBox)
