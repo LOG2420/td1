@@ -520,13 +520,14 @@ function selectDate(){
   document.getElementsByClassName("input-checkbox").checked = true;
 
 }
-document.getElementsByClassName("input-checkbox").addEventListener("click", selectDate);
+
+// document.getElementsByClassName("input-checkbox").addEventListener("click", selectDate);
 
 function hoverCheckBox() {
   
 }
 
-document.addEventListener("mouseover", joverCheckBox) //??
+// document.addEventListener("mouseover", joverCheckBox) //??
 
 
 function findAssociatedName(element) {
@@ -536,6 +537,7 @@ function findAssociatedName(element) {
 
 function findIfIsAvailable(element) {
   // Element will fall into one of two classes
+  // If box is checked, then the person is available
   return element.classList.contains("checked");
 }
 
