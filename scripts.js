@@ -337,7 +337,6 @@ function constructCheckBox() {
 
   let input = makeClassifiedDiv("input-checkbox");
   box.appendChild(input);
-
   return box;
 }
 
@@ -354,9 +353,10 @@ function constructNameBox(name) {
 
   box.appendChild(wrappedImage);
   box.appendChild(nameSpan);
+  let crayon = createCrayon(box);
 
   // box.appendChild(nameSpan);
-  return box
+  return box;
 }
 
 /**
@@ -464,10 +464,11 @@ function ConstructTable(intel) {
       container.appendChild(row);
     }
   })
-
-  renderDiv.call(document.querySelector("body"), data.parsedCalendar[1], "stuff", true);
-
 }
+
+
+
+
 
 // ====================================================
 // ================== Layout Switch ===================
@@ -517,20 +518,26 @@ function cb() {
 // ============= Front-end features ===================
 // ====================================================
 
-function selectDate(){
-  $(".option-box").addClass("selected-background");
-  $(".tally").addClass("selected-background");
-  document.getElementsByClassName("input-checkbox").checked = true;
-
+function hoverCheckbox(element) {
+  element.style.backgroundColor = "black";
 }
 
-// document.getElementsByClassName("input-checkbox").addEventListener("click", selectDate);
+function createCrayon(element) {
+  let crayon = document.createElement("img");
+  crayon.src = 'images/Crayon.png';
 
-function hoverCheckBox() {
-  
+  crayon.classList.add("crayon");
+  element.appendChild(crayon);
+  return crayon;
 }
 
-// document.addEventListener("mouseover", joverCheckBox) //??
+function crayonAppear(element) {
+  element.style.visibility = "visible";
+}
+
+function crayonDisappear(element) {
+  element.style.visibility = "hidden";
+}
 
 
 function findAssociatedName(element) {
@@ -609,7 +616,7 @@ let dankHandler = Object.create(asyncHandler);
 cells.forEach((cell)=>{
   // Arrow function does not work because it sets bind by scope context (which 
   // would here be the global object)
-  if(!cell.classList.contains("tally")) {
+  if(!cell.classList.contains("tally") || cell.classList.contains("checkbox")) {
     cell.addEventListener("mouseenter", function(e){
       let hoverDiv = document.querySelector(".hover-div")
   
@@ -627,6 +634,26 @@ cells.forEach((cell)=>{
   }
 }) ;
 }
+
+var nameBoxes = document.querySelectorAll("name-box");
+var crayons = document.querySelectorAll("crayon");
+for (var i = 0; i < nameBoxes.length; i++){
+  nameBoxes[i].addEventListener("mouseenter", function(event){ crayonAppear(event.target.children.querySelectorAll("crayon"))}); 
+  nameBoxes[i].addEventListener("mouseleave", function(event){ crayonDisappear(event.target.children.querySelectorAll("crayon"))});
+}
+
+
+
+var checkBoxes = document.querySelectorAll("checkbox");
+for (var i = 0; i < checkBoxes.length; i++){
+  checkBoxes[i].addEventListener("mouseenter", function(event){
+    console.log(checkBox[i]);
+    hoverCheckbox(checkBoxes[i])});}
+
+
+
+
+
 
 // ==========================================================
 // =================== Page init ============================
