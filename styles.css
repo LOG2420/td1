@@ -24,7 +24,7 @@
 	background-color: var(--all-background);
 }
 
-/* Styles applying the time meta data
+/* Styles applying to the time meta data
    ========================================================================== */
 
 .time-meta-data {
@@ -97,7 +97,6 @@ button:focus {
 .feather-green {
 	stroke: var(--icon-green);
 	width: 24px;
-	/* margin: 13px auto; */
 }
 
 .feather-user {
@@ -276,17 +275,13 @@ input[type="checkbox"]:hover {
 	background-color:var(--checkbox-hover-blue);
 }
 
+/*The editing crayon, set to hidden by default unless hovered over*/
 .crayon {
 	float: right;
 	padding-right: 10px;
 	padding-top: 5px;
 	visibility: hidden;
 	cursor: grabbing;
-	/* crayon.style.cssFloat = "right";
-	crayon.style.paddingRight = "10px";
-	crayon.style.paddingTop = "5px";
-	crayon.style.visibility = "hidden";
-	crayon.style.cursor = "grabbing"; */
 }
 
 /* Styles pertaining to the left most column
@@ -315,15 +310,13 @@ input[type="checkbox"]:hover {
 }
 
 .name-box {
-		flex: 3 1 30px;
-		border-bottom: 1px solid white;
-		/* border-top:1px solid var(--border-gray); */
+	flex: 3 1 30px;
+	border-bottom: 1px solid white;
 }
 
 .name-input {
 	height: 56px;
 	background-color: var(--checkbox-blue);
-	/* border-top:1px solid var(--border-gray); */
 }
 
 input[type="text"] {
@@ -406,7 +399,7 @@ hr {
 	font-family: 'Fira Sans';
 }
 
-
+/*Name input box at the top of the calendar*/
 .name-input-calendar {
 	height: 56px;
 	padding-left: 43%;
@@ -419,23 +412,13 @@ hr {
 	display: grid;
 	grid-template-rows: 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 
 	30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px ;
-	grid-template-columns: auto auto auto auto auto auto auto auto;
+	grid-template-columns: 150px auto auto auto auto auto auto auto;
 	color: #282F34;
 }
  
 .calendar-grid > div {
 	border-bottom: dotted 1px var(--border-gray);
 	position: relative;
-}
-
-.calendar-grid-line {
-	border-top: solid 1px var(--border-gray);
-	position: absolute;
-}
-
-.solid-line-grid {
-	border-top: solid 1px var(--border-gray);
-	top: 100%;
 }
 
 .calendar-hour {
@@ -450,7 +433,6 @@ hr {
 	text-transform: uppercase;
 	text-align: center;
 	vertical-align: text-top;
-	/* font-weight:  */
 }
 
 .month-day {
@@ -458,11 +440,6 @@ hr {
 	font-style: normal;
 	font-size: 24px;
 	text-align: center;
-}
-
-.calendar-space {
-	padding-left: 20px;
-	color:transparent;
 }
 
 .week-selection {
@@ -482,6 +459,7 @@ hr {
 }
 
 .week {
+	padding-top: 10px;
 	font-size: 20px;
 	text-align: center;
 }
@@ -494,15 +472,9 @@ hr {
 	z-index: 1;
 }
 
-
-
-/*
-FAKE
-*/
-
-.grid-container {
+.calendar-headers {
 	display: grid;
 	grid-template-rows: 25px 15px;
-	grid-template-columns: auto auto auto auto auto auto auto auto;
+	grid-template-columns: 150px auto auto auto auto auto auto auto;
 	height: 50px;
-  }
+}

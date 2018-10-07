@@ -154,6 +154,7 @@ var DataObject = {
     let endTimeString =  endHour.toString() + ":" + endMinute.toString() + ":" + startTimeArray[2];
     return endTimeString;
   },
+
   /**
    * @function
    * A function that modifies
@@ -309,7 +310,7 @@ function constructDateBox(dateInformation){
 
 /**
    * @function
-   * A that makes a tally box by combining the given tally with 
+   * A function that makes a tally box by combining the given tally with 
    * a check svg icon
    * 
    * @param tally - The tally number to insert into the tally box
@@ -329,7 +330,13 @@ function constructTallyBox(tally) {
   box.appendChild(wrappedIcon);
   return box;
 }
-
+/**
+   * @function
+   * A function that constructs a checkbox with an input box
+   * 
+   * 
+   * @returns a constructed checkbox
+   */
 function constructCheckBox() {
   let box = constructTableCell();
   console.log(box);
@@ -339,8 +346,14 @@ function constructCheckBox() {
   box.appendChild(input);
   return box;
 }
-
-/** @todo fix this function */
+/**
+   * @function
+   * A function that constructs a name box using a participant's name and an icon
+   * 
+   * @param {String} name - The name of the participant
+   * 
+   * @returns a constructed name box
+   */
 function constructNameBox(name) {
   let box = makeClassifiedDiv("name-box");
 
@@ -349,13 +362,11 @@ function constructNameBox(name) {
   let nameSpan = document.createElement("span");
   
   nameSpan.innerText = name;
-  // wrappedIcon.appendChild(nameSpan);
 
   box.appendChild(wrappedImage);
   box.appendChild(nameSpan);
   let crayon = createCrayon(box);
 
-  // box.appendChild(nameSpan);
   return box;
 }
 
@@ -474,7 +485,7 @@ function ConstructTable(intel) {
 // ================== Layout Switch ===================
 // ====================================================
 
-// This part of the code toggles the displayss
+// This part of the code toggles the displays
 function toggleDisplay(htmlElement) {
 	if (htmlElement.style.display == "block") {
 		htmlElement.style.display = "none";
@@ -518,39 +529,78 @@ function cb() {
 // ============= Front-end features ===================
 // ====================================================
 
+
+//TODO: Fix this function
+/**
+   * @function
+   * A function affects the styling of a checkbox when a the mouse hover's over
+   * 
+   * @param element - the element that will be affected
+   * 
+   */
 function hoverCheckbox(element) {
   element.style.backgroundColor = "black";
 }
 
-function createCrayon(element) {
+/**
+   * @function
+   * A function that generates an editing crayon icon to append to each name box
+   * 
+   * @param nameBoxElement - The name box to append the crayon icon to
+   * 
+   * @returns the crayon icon
+   */
+function createCrayon(nameBoxElement) {
   let crayon = document.createElement("img");
   crayon.src = 'images/Crayon.png';
 
   crayon.classList.add("crayon");
-  element.appendChild(crayon);
+  nameBoxElement.appendChild(crayon);
   return crayon;
 }
 
+//These two functions toggle visibility for the crayon, they are called when the user hovers over them
 function crayonAppear(element) {
   element.style.visibility = "visible";
 }
-
 function crayonDisappear(element) {
   element.style.visibility = "hidden";
 }
 
-
+/**
+   * @function
+   * A function returns the name of a participant based on a cell in their row
+   * 
+   * @param element - A cell in a participant's row
+   * 
+   * @returns the participant's name
+   */
 function findAssociatedName(element) {
   // Element will be a cell in a person's row
   return element.parentNode.firstChild.innerText;
 }
 
+/**
+   * @function
+   * A function indicates if a participant has checked available
+   * 
+   * @param element - The box to check if available
+   * 
+   * @returns {boolean} If the participant is available
+   */
 function findIfIsAvailable(element) {
   // Element will fall into one of two classes
   // If box is checked, then the person is available
   return element.classList.contains("checked");
 }
 
+/**
+   * @function
+   * A function that generates an information box when the user hovers over a cell
+   * 
+   * @param dateInformation - Data for the date associated to a cell
+   * 
+   */
 function renderDiv(dateInformation){
 
   // Create the div that will be hovering
@@ -586,69 +636,80 @@ function renderDiv(dateInformation){
   this.appendChild(hoverDiv);
 }
 
-
+/**
+   * @function
+   * A function that initializes page informaiton
+   * 
+   * @param {Object} data - The data retrieved from the JSON file
+   * 
+   */
 function initFrontEnd(data) {
   // Front End
 
-let cells = document.querySelectorAll(".table-cell");
+  let cells = document.querySelectorAll(".table-cell");
 
 
 
 
-var asyncHandler = {
-  timerN : 0,
-  waitASecondDawg: function(action){
-    console.log(this.timerN.toString() + "startTimer");
-    this.timeOutObject = setTimeout(action,1000);
-  },
-  holdUp: function(){
-    console.log(this.timerN.toString() + "endTimer");
-    clearTimeout(this.timeOutObject);
-    this.timerN++;
-    this.timeOutObject = null;
+  var asyncHandler = {
+    timerN : 0,
+    waitASecondDawg: function(action){
+      console.log(this.timerN.toString() + "startTimer");
+      this.timeOutObject = setTimeout(action,1000);
+    },
+    holdUp: function(){
+      console.log(this.timerN.toString() + "endTimer");
+      clearTimeout(this.timeOutObject);
+      this.timerN++;
+      this.timeOutObject = null;
+    }
   }
-}
 
-let dankHandler = Object.create(asyncHandler);
-
+  let dankHandler = Object.create(asyncHandler);
 
 
-cells.forEach((cell)=>{
-  // Arrow function does not work because it sets bind by scope context (which 
-  // would here be the global object)
-  if(!cell.classList.contains("tally") || cell.classList.contains("checkbox")) {
-    cell.addEventListener("mouseenter", function(e){
-      let hoverDiv = document.querySelector(".hover-div")
-  
-      if(document.querySelector(".hover-div")){
-        hoverDiv.parentNode.removeChild(hoverDiv);
-      }
-      if(dankHandler.timeOutObject) {
-        dankHandler.holdUp();
-      }
-  
-      renderDivDate = renderDiv.bind(this, data.parsedCalendar[this.index])
-  
-      dankHandler.waitASecondDawg(renderDivDate);
-    })
+
+  cells.forEach((cell)=>{
+    // Arrow function does not work because it sets bind by scope context (which 
+    // would here be the global object)
+    if(!cell.classList.contains("tally") || cell.classList.contains("checkbox")) {
+      cell.addEventListener("mouseenter", function(e){
+        let hoverDiv = document.querySelector(".hover-div")
+    
+        if(document.querySelector(".hover-div")){
+          hoverDiv.parentNode.removeChild(hoverDiv);
+        }
+        if(dankHandler.timeOutObject) {
+          dankHandler.holdUp();
+        }
+    
+        renderDivDate = renderDiv.bind(this, data.parsedCalendar[this.index])
+    
+        dankHandler.waitASecondDawg(renderDivDate);
+      })
+    }
+  });
+
+  //TODO: Fix this event listener
+  //Add event listeners to the participant name boxes, to have the editing crayon appear on mouser hover
+  var nameBoxes = document.querySelectorAll("name-box");
+  var crayons = document.querySelectorAll("crayon");
+  for (var i = 0; i < nameBoxes.length; i++){
+    nameBoxes[i].addEventListener("mouseenter", function(event){ crayonAppear(event.target.children.querySelectorAll("crayon"))}); 
+    nameBoxes[i].addEventListener("mouseleave", function(event){ crayonDisappear(event.target.children.querySelectorAll("crayon"))});
   }
-}) ;
+
+
+  //TODO: Fix this event listener
+  //Add an event listener to each check box to add hover functionality
+  var checkBoxes = document.querySelectorAll("checkbox");
+  for (var i = 0; i < checkBoxes.length; i++){
+    checkBoxes[i].addEventListener("mouseenter", function(event){
+      console.log(checkBox[i]);
+      hoverCheckbox(checkBoxes[i])});}
+
 }
 
-var nameBoxes = document.querySelectorAll("name-box");
-var crayons = document.querySelectorAll("crayon");
-for (var i = 0; i < nameBoxes.length; i++){
-  nameBoxes[i].addEventListener("mouseenter", function(event){ crayonAppear(event.target.children.querySelectorAll("crayon"))}); 
-  nameBoxes[i].addEventListener("mouseleave", function(event){ crayonDisappear(event.target.children.querySelectorAll("crayon"))});
-}
-
-
-
-var checkBoxes = document.querySelectorAll("checkbox");
-for (var i = 0; i < checkBoxes.length; i++){
-  checkBoxes[i].addEventListener("mouseenter", function(event){
-    console.log(checkBox[i]);
-    hoverCheckbox(checkBoxes[i])});}
 
 
 
@@ -660,6 +721,7 @@ for (var i = 0; i < checkBoxes.length; i++){
 // ==========================================================
 var data = Object.create(DataObject);
 
+//Retrieve the data from the JSON file, add it to the data object
 fetch('cal-data.json')
   .then(function(response) {
     return response.json();

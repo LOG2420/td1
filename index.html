@@ -10,10 +10,9 @@
 </head>
 
 <body>
-		<!-- Purement en front end -->
+	<!-- Purement en front end -->
 	<div class="encompassing-box">
 		<div class="time-meta-data">
-			<!-- <div data-icon="ei-clock"></div> -->
 			All time displayed in <span class="time-zone"> America/New York</span>
 		</div>
 
@@ -23,7 +22,7 @@
 		</div>
 	</div>
 
-
+	<!-- The table poll section of the page-->
 	<div class="table-poll" style="display:block;">
 		<div class="container">
 			<div class="row">
@@ -36,7 +35,7 @@
 				</div>
 			</div>
 
-				<!--  Here a number of tally boxes are dynamically generated
+			<!--  Here a number of tally boxes are dynamically generated
 			depending on the number of available dates-->
 			<div class="row input-row">
 				<div class="name-input">
@@ -51,6 +50,7 @@
 		</div>
 	</div>
 
+	<!-- The calendar section of the page-->
 	<div class="calendar" style="display:none">
 		<div class="row input-row">
 			<div class="name-input-calendar">
@@ -62,14 +62,15 @@
 				</div>
 			</div>
 		</div>
-
+		<!--The selection of the week-->
 		<div class="week-selection">
 			<div class="left-arrow"><img src="images/chevron-left.png" style="width: 30px; height: 50px;"></div>
 			<div class="week">Aug 26 - Sep 1, 2018</div>
-			<div class="right-arrow"><object type="images/svg+xml" data="chevron-left.svg">v</object></div>
+			<div class="right-arrow"><img src="images/chevron-right.png" style="width: 30px; height: 50px;"></div>
 		</div>
-			
-		<div class="grid-container">
+		
+		<!--The day of the week-->
+		<div class="calendar-headers">
 			<div class="month-day"></div>
 			<div class="month-day">26</div>
 			<div class="month-day">27</div>
@@ -88,6 +89,7 @@
 			<div class="weekday">SAT</div>
 		</div>
 
+		<!--The calendar grid with blocks for each half hour-->
 		<div class="calendar-grid">
 				<div class="calendar-hour">12:00 AM</div>
 				<div></div>
@@ -520,44 +522,9 @@
 				<div></div>
 				<div></div>
 				<div><div class="calendar-grid-line"></div></div>
-				
 		</div>
-
-
 	</div>
 
-<!-- 
- -->
-
-
-
-<!-- 			<div class="week">
-				<object type="image/svg+xml" data="chevron-left.svg">Your browser does not support SVGs</object>
-				<p>Aug 26 - Sep 1, 2018</p>
-			</div>
-		</div>
-		<div class="calendar-grid">
-			<div class="month-day">
-				<div class="calendar-space"></div>
-				<div>26</div>
-				<div>27</div>
-				<div>28</div>
-				<div>29</div>
-				<div>30</div>
-				<div>31</div>
-				<div>1</div>
-			</div>
-			<div class="weekday">
-				<td>SUN</td>
-				<td>MON</td>
-				<td>TUE</td>
-				<td>WEN</td>
-				<td>THU</td>
-				<td>FRI</td>
-				<td>SAT</td>
-			</div>
-		</div>
-	</div> -->
 
 
 		<script
